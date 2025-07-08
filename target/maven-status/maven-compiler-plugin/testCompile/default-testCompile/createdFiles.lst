@@ -1,0 +1,4 @@
+runners\TestRunner.class
+com\orangehrm\AppTest.class
+hooks\Hooks.class
+stepdefs\LoginSteps.class
