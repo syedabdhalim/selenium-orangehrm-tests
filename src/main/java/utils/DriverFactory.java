@@ -13,13 +13,32 @@ public class DriverFactory {
     public static WebDriver initDriver() {
         logger.info("Initializing driver for thread: {}", Thread.currentThread().getId());
         ChromeOptions options = new ChromeOptions();
+        // Basic stability options
+        options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--start-maximized");
+        options.addArguments("--window-size=1920,1080");
+
+        // Parallel execution fixes
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-plugins");
+        options.addArguments("--disable-web-security");
+        options.addArguments("--allow-running-insecure-content");
+
+        // Disable DevTools to prevent crash
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-background-timer-throttling");
+        options.addArguments("--disable-backgrounding-occluded-windows");
+        options.addArguments("--disable-renderer-backgrounding");
+
+        // Memory optimization
+        options.addArguments("--memory-pressure-off");
+        options.addArguments("--max_old_space_size=4096");
 
         WebDriver driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driverThread.set(driver);
         return driver;
     }
