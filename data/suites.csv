@@ -1,2 +1,2 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Fri Jul 11 16:41:58 UTC 2025","Fri Jul 11 16:42:13 UTC 2025","14525","","OrangeHRM Login","","Login with valid credentials","","Login with valid credentials",""
+"passed","Fri Jul 11 16:43:07 UTC 2025","Fri Jul 11 16:43:23 UTC 2025","15573","","OrangeHRM Login","","Login with valid credentials","","Login with valid credentials",""
