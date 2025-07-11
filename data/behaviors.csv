@@ -1,2 +1,4 @@
 "Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
 "","OrangeHRM Login","Login with valid credentials","0","0","1","0","0"
+"","OrangeHRM Logout","Logout after successful login","0","0","1","0","0"
+"","OrangeHRM Login","Login with invalid credentials","0","0","1","0","0"
