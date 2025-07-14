@@ -1,6 +1,7 @@
 name: CI
 on:
-  push: { branches: [main] }
+  push:
+    branches: [main]
   pull_request:
 
 jobs:
@@ -29,6 +30,7 @@ jobs:
       - name: Maven test
         run: mvn -B clean test
 
+
       - name: Upload Surefire reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -36,9 +38,30 @@ jobs:
           name: surefire-reports
           path: target/surefire-reports
 
+      - name: Collect ExtentReports HTML
+        run: |
+          REPORT_DIR="test-output/extent"
+          mkdir -p gh-pages
+          cp -r "$REPORT_DIR"/* gh-pages/
+
       - name: Upload ExtentReports HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: extent-reports
-          path: test-output/extent-reports
+          name: extent-report
+          path: gh-pages
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: extent-report
+          path: gh-pages
+
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
