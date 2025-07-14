@@ -1,5 +1,6 @@
 # Selenium OrangeHRM Tests
 
+
 ![CI](https://github.com/syedabdhalim/selenium-orangehrm-tests/actions/workflows/ci.yml/badge.svg)
 [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white)](#)
 ![Selenium](https://img.shields.io/badge/Selenium-Automation-green?logo=selenium)
@@ -8,6 +9,8 @@
 UI test automation project built with **Selenium**, **Cucumber**, and **Java** to validate core functionalities of [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/). It follows the **Page Object Model** (POM) design pattern, integrates with **TestNG** as the runner, and generates detailed visual reports using **ExtentReports**.
 
 CI/CD is handled via **GitHub Actions**.
+
+[![View ExtentReports](https://img.shields.io/badge/ExtentReports-View_Live_Report-blue)](https://syedabdhalim.github.io/selenium-orangehrm-tests/)
 
 ---
 
