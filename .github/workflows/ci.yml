@@ -18,7 +18,7 @@
         - uses: actions/setup-java@v3
           with:
             distribution: temurin
-            java-version: '17'
+            java-version: '21'
 
         - name: Install ChromeDriver via npm
           run: |
@@ -40,12 +40,12 @@
           if: always()
           run: |
             mkdir -p gh-pages
-            cp -r target/extent-report/* gh-pages/
+            cp -r test-output/extent-reports/* gh-pages/
         - name: Upload Extent HTML
           if: always()
           uses: actions/upload-artifact@v4
           with:
-            name: extent-report
+            name: extent-reports
             path: gh-pages
 
     deploy:
@@ -55,7 +55,7 @@
       steps:
         - uses: actions/download-artifact@v4
           with:
-            name: extent-report
+            name: extent-reports
             path: gh-pages
 
         - uses: peaceiris/actions-gh-pages@v3
