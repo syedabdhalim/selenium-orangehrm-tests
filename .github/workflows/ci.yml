@@ -36,36 +36,9 @@ jobs:
           name: surefire-reports
           path: target/surefire-reports
 
-      - name: Install Allure CLI
-        run: |
-          curl -sL -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
-          tar -zxf allure.tgz
-          sudo mv allure-2.27.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-
-      - name: Generate Allure report
-        run: |
-          mkdir -p gh-pages
-          allure generate target/allure-results --clean -o gh-pages
-
-      - name: Upload Allure HTML
+      - name: Upload ExtentReports HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
-          path: gh-pages
-
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: allure-report
-          path: gh-pages
-
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages
+          name: extent-reports
+          path: test-output/extent-reports
