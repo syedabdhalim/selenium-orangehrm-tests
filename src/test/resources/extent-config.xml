@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <!-- report theme -->
+        <theme>standard</theme>
+        
+        <!-- document encoding -->
+        <encoding>UTF-8</encoding>
+        
+        <!-- protocol for script and stylesheets -->
+        <protocol>https</protocol>
+        
+        <!-- title of the document -->
+        <documentTitle>OrangeHRM Test Report</documentTitle>
+        
+        <!-- report name -->
+        <reportName>OrangeHRM Automation Test Results</reportName>
+        
+        <!-- report headline -->
+        <reportHeadline>OrangeHRM Demo Application Test Results</reportHeadline>
+        
+        <!-- custom javascript -->
+        <scripts>
+            <![CDATA[
+                $(document).ready(function() {
+                    $('.logo-container').hide();
+                });
+            ]]>
+        </scripts>
+        
+        <!-- custom styles -->
+        <styles>
+            <![CDATA[
+                .logo-container { display: none; }
+                .nav-wrapper { background-color: #ff6b35; }
+                .brand-logo { color: white; }
+            ]]>
+        </styles>
+    </configuration>
+</extentreports> 

@@ -4,17 +4,10 @@
 [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white)](#)
 ![Selenium](https://img.shields.io/badge/Selenium-Automation-green?logo=selenium)
 ![Cucumber](https://img.shields.io/badge/Cucumber-BDD-23d96c?logo=cucumber)
-![Allure](https://img.shields.io/badge/Allure-Report-green)
 
-UI test automation project built with **Selenium**, **Cucumber**, and **Java** to validate core functionalities of [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/). It follows the **Page Object Model** (POM) design pattern, integrates with **TestNG** as the runner, and generates detailed visual reports using **Allure**.
+UI test automation project built with **Selenium**, **Cucumber**, and **Java** to validate core functionalities of [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/). It follows the **Page Object Model** (POM) design pattern, integrates with **TestNG** as the runner, and generates detailed visual reports using **ExtentReports**.
 
-CI/CD is handled via **GitHub Actions**, with live Allure reports auto-deployed through GitHub Pages.
-
----
-
-## Live Allure Report
-
-[![Allure Report](https://img.shields.io/badge/Allure-View_Report-blue)](https://syedabdhalim.github.io/selenium-orangehrm-tests/)
+CI/CD is handled via **GitHub Actions**.
 
 ---
 
@@ -30,8 +23,7 @@ selenium-orangehrm-tests/
 │       ├── stepdefs/      # Step Definitions binding Gherkin steps to code
 │       ├── hooks/         # Cucumber Hooks
 │       └── runners/       # Test runners
-├── target/allure-results/ # Generated Allure result files
-├── gh-pages/              # Auto-generated HTML report
+├── test-output/extent-reports/ # Generated ExtentReports HTML files
 ├── .github/workflows/ci.yml # GitHub Actions CI workflow
 ```
 
@@ -47,7 +39,5 @@ selenium-orangehrm-tests/
 ```bash
 mvn clean test
 ```
-### 3. View Allure report locally
-```bas
-allure serve target/allure-results
-```
+### 3. View ExtentReports
+- Open the latest HTML file in `test-output/extent-reports/` with your browser.

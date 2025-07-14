@@ -9,3 +9,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+# Logs
+logs/
+*.log
+# Test reports
+test-output/

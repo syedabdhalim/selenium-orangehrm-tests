@@ -10,9 +10,9 @@ import org.testng.annotations.DataProvider;
     tags = "@smoke",
     plugin = {
         "pretty",
-        "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
         "json:target/cucumber.json",
-        "html:target/cucumber-report.html"
+        "html:target/cucumber-report.html",
+        "utils.ExtentCucumberAdapter"
     },
     monochrome = true
 )
