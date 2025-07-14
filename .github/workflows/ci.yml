@@ -1,67 +1,64 @@
-name: CI
-on:
-  push:
-    branches: [main]
-  pull_request:
+  name: CI
+  on:
+    push: { branches: [main] }
+    pull_request:
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
 
-      - uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-          restore-keys: maven-${{ runner.os }}-
+        - uses: actions/cache@v3
+          with:
+            path: ~/.m2/repository
+            key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+            restore-keys: maven-${{ runner.os }}-
 
-      - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: '17'
+        - uses: actions/setup-java@v3
+          with:
+            distribution: temurin
+            java-version: '17'
 
-      - name: Install ChromeDriver via npm
-        run: |
-          npm install chromedriver --silent
-          export PATH=$PATH:$(pwd)/node_modules/.bin
-          chromedriver --version
+        - name: Install ChromeDriver via npm
+          run: |
+            npm install chromedriver --silent
+            echo "$(pwd)/node_modules/.bin" >> $GITHUB_PATH
+            chromedriver --version
 
-      - name: Maven test
-        run: mvn -B clean test
+        - name: Maven test
+          run: mvn -B clean test
 
+        - name: Upload Surefire reports
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+            name: surefire-reports
+            path: target/surefire-reports
 
-      - name: Upload Surefire reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: surefire-reports
-          path: target/surefire-reports
+        - name: Prepare Extent HTML
+          if: always()
+          run: |
+            mkdir -p gh-pages
+            cp -r target/extent-report/* gh-pages/
+        - name: Upload Extent HTML
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+            name: extent-report
+            path: gh-pages
 
-      - name: Collect ExtentReports HTML
-        run: |
-          REPORT_DIR="test-output/extent"
-          mkdir -p gh-pages
-          cp -r "$REPORT_DIR"/* gh-pages/
+    deploy:
+      if: github.ref == 'refs/heads/main'
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/download-artifact@v4
+          with:
+            name: extent-report
+            path: gh-pages
 
-      - name: Upload ExtentReports HTML
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: extent-report
-          path: gh-pages
-
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: extent-report
-          path: gh-pages
-
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages
+        - uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./gh-pages
