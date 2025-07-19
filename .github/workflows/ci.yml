@@ -40,7 +40,9 @@
           if: always()
           run: |
             mkdir -p gh-pages
-            cp -r test-output/extent-reports/* gh-pages/
+            latest_report=$(ls -t test-output/extent-reports/*.html | head -n 1)
+            cp "$latest_report" gh-pages/index.html
+
         - name: Upload Extent HTML
           if: always()
           uses: actions/upload-artifact@v4
