@@ -28,11 +28,6 @@ public class Hooks {
         driver = DriverFactory.initDriver();
         driver.get(prop.getProperty("baseUrl"));
         
-        // Start ExtentReports test
-        ExtentTest test = ExtentReportManager.getInstance().createTest(scenario.getName());
-        test.assignCategory(scenario.getSourceTagNames().toArray(new String[0]));
-        test.assignAuthor("Automation Team");
-        
         logger.info("Test environment setup completed for thread: {}", Thread.currentThread().getId());
     }
 
